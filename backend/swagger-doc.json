@@ -1,0 +1,540 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Ecommerce Manager",
+    "version": "1.0.0",
+    "description": ""
+  },
+  "host": "",
+  "basePath": "/",
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/": {
+      "get": {
+        "tags": [
+          "Server"
+        ],
+        "summary": "Server entry point",
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/auth/login": {
+      "post": {
+        "tags": [
+          "Authentication"
+        ],
+        "summary": "Login with existing user",
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/LoginReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/AuthResponse"
+            },
+            "description": "OK"
+          },
+          "400": {
+            "description": "Invalid input parameters",
+            "schema": {
+              "$ref": "#/definitions/InputError"
+            }
+          },
+          "404": {
+            "description": "Invalid credentials",
+            "schema": {
+              "$ref": "#/definitions/CustomError"
+            }
+          },
+          "500": {
+            "schema": {
+              "$ref": "#/definitions/CustomError"
+            },
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/order/get": {
+      "get": {
+        "tags": [
+          "Order"
+        ],
+        "summary": "Get all orders",
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string",
+            "required": true,
+            "description": "JWT token, must be sent in headers.authorization",
+            "example": "Bearer sdnfsoidnf239j3904fj9034f-924n-24nf.vn4039f902f903n90n392f..."
+          },
+          {
+            "name": "status",
+            "type": "string",
+            "in": "query"
+          },
+          {
+            "name": "shippingPromiseDateFrom",
+            "type": "number",
+            "in": "query"
+          },
+          {
+            "name": "shippingPromiseDateTo",
+            "type": "number",
+            "in": "query"
+          },
+          {
+            "name": "createDateFrom",
+            "type": "number",
+            "in": "query"
+          },
+          {
+            "name": "createDateTo",
+            "type": "number",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/POrder"
+            },
+            "description": "OK"
+          },
+          "401": {
+            "schema": {
+              "$ref": "#/definitions/CustomError"
+            },
+            "description": "Invalid token | Token expired | Error in token authentication"
+          },
+          "500": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/CustomError"
+            }
+          }
+        }
+      }
+    },
+    "/order/get-pdf": {
+      "get": {
+        "tags": [
+          "Order"
+        ],
+        "summary": "Get orders in a PDF",
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string",
+            "required": true,
+            "description": "JWT token, must be sent in headers.authorization",
+            "example": "Bearer sdnfsoidnf239j3904fj9034f-924n-24nf.vn4039f902f903n90n392f..."
+          },
+          {
+            "name": "status",
+            "type": "string",
+            "in": "query"
+          },
+          {
+            "name": "shippingPromiseDateFrom",
+            "type": "number",
+            "in": "query"
+          },
+          {
+            "name": "shippingPromiseDateTo",
+            "type": "number",
+            "in": "query"
+          },
+          {
+            "name": "createDateFrom",
+            "type": "number",
+            "in": "query"
+          },
+          {
+            "name": "createDateTo",
+            "type": "number",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/POrder"
+            },
+            "description": "OK"
+          },
+          "401": {
+            "schema": {
+              "$ref": "#/definitions/CustomError"
+            },
+            "description": "Invalid token | Token expired | Error in token authentication"
+          },
+          "500": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/CustomError"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "LoginReq": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string",
+          "example": "example@email.com"
+        },
+        "password": {
+          "type": "string",
+          "example": "abcd1234"
+        }
+      },
+      "required": [
+        "email",
+        "password"
+      ]
+    },
+    "AuthResponse": {
+      "type": "object",
+      "properties": {
+        "credentials": {
+          "$ref": "#/definitions/AuthData"
+        },
+        "user": {
+          "$ref": "#/definitions/User"
+        }
+      },
+      "required": [
+        "credentials",
+        "user"
+      ],
+      "additionalProperties": false
+    },
+    "AuthData": {
+      "type": "object",
+      "properties": {
+        "token": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "token"
+      ],
+      "additionalProperties": false
+    },
+    "User": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "firstName": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "email",
+        "firstName",
+        "lastName"
+      ],
+      "additionalProperties": false
+    },
+    "GetOrdersResponse": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/POrder"
+      }
+    },
+    "POrder": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "createDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "status": {
+          "$ref": "#/definitions/OrderStatusEnum"
+        },
+        "client": {
+          "$ref": "#/definitions/PUser"
+        },
+        "shippingAddress": {
+          "type": "string"
+        },
+        "shippingPromise": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "item": {
+                "$ref": "#/definitions/PItem"
+              },
+              "quantity": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "item",
+              "quantity"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "id",
+        "createDate",
+        "status",
+        "client",
+        "shippingAddress",
+        "shippingPromise",
+        "items"
+      ],
+      "additionalProperties": false
+    },
+    "OrderStatusEnum": {
+      "type": "string",
+      "enum": [
+        "approve",
+        "cancel",
+        "delivery",
+        "traveling"
+      ]
+    },
+    "PUser": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "firstName": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "email",
+        "firstName",
+        "lastName"
+      ],
+      "additionalProperties": false
+    },
+    "PItem": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "imageUrl": {
+          "type": "string"
+        },
+        "price": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "description",
+        "imageUrl",
+        "price"
+      ],
+      "additionalProperties": false
+    },
+    "GetOrdersReq": {
+      "type": "object",
+      "properties": {
+        "filter": {
+          "type": "object",
+          "properties": {
+            "status": {
+              "type": "string",
+              "enum": [
+                "approved",
+                "cancel",
+                "delivery",
+                "traveling"
+              ]
+            },
+            "shippingPromiseDateFrom": {
+              "type": "number"
+            },
+            "shippingPromiseDateTo": {
+              "type": "number"
+            },
+            "createDateFrom": {
+              "type": "number"
+            },
+            "createDateTo": {
+              "type": "number"
+            }
+          },
+          "required": [],
+          "example": {
+            "status": "approved",
+            "shippingPromiseDateFrom": 1692986532002,
+            "shippingPromiseDateTo": 1692986532002,
+            "createDateFrom": 1692986532002,
+            "createDateTo": 1692986532002
+          }
+        }
+      },
+      "required": []
+    },
+    "InputError": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        },
+        "stack": {
+          "type": "string"
+        },
+        "code": {
+          "type": "number"
+        },
+        "fields": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/FieldError"
+          }
+        }
+      },
+      "required": [
+        "code",
+        "fields",
+        "message",
+        "name"
+      ],
+      "additionalProperties": false
+    },
+    "FieldError": {
+      "type": "object",
+      "properties": {
+        "input_error": {
+          "type": "string"
+        },
+        "expected": {
+          "type": "string"
+        },
+        "received": {
+          "type": "string"
+        },
+        "path": {
+          "type": "array",
+          "items": {
+            "type": [
+              "string",
+              "number"
+            ]
+          }
+        },
+        "message": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "input_error",
+        "expected",
+        "received",
+        "path",
+        "message"
+      ],
+      "additionalProperties": false
+    },
+    "CustomError": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        },
+        "stack": {
+          "type": "string"
+        },
+        "code": {
+          "$ref": "#/definitions/errorCodeEnum"
+        },
+        "description": {
+          "type": "string"
+        },
+        "extraInfo": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "code",
+        "description",
+        "message",
+        "name"
+      ],
+      "additionalProperties": false
+    },
+    "errorCodeEnum": {
+      "type": "number",
+      "enum": [
+        400,
+        401,
+        403,
+        404,
+        405,
+        409,
+        500
+      ]
+    }
+  }
+}
