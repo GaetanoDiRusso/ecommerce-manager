@@ -31,34 +31,8 @@ Project structure:
 
 ```
 
-## Run the Docker image
-Pull the Frontend and Backend from the dockerhub:
-```
-docker pull gaetanodirusso/backend:v1.0
-docker pull gaetanodirusso/frontend:v1.0
-```
-
-Then, in the root repository, execute the docker compose:
-```
-docker compose up -d
-```
-
-## Build the Docker image
-### Build the backend
-```
-cd .\backend\
-npm install
-npm run build
-```
-
-### Build the frontend
-```
-cd .\frontend\
-npm install
-npm run build
-```
-
-### Execute the Docker images
+## Run the Frontend, Backend and MongoDB, using the Docker compose
+In the root repository, execute the docker compose:
 ```
 docker compose up -d
 ```
