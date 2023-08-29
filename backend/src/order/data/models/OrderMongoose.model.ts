@@ -11,7 +11,7 @@ const orderSchema = new mongoose.Schema<OrderMongooseModel>({
   client: {type: Schema.Types.ObjectId, ref: UserMongooseModel, required: true} as any,  //client is a reference to Model
   shippingAddress: {type: String, required: true},
   shippingPromise: {type: Number, required: true}  as any,  //store the date as timestamp
-  orderedItems: {item: {type: Schema.Types.ObjectId, ref: ItemMongooseModel}, quantity: Number}  //itemId is a reference to Item Model
+  orderedItems: [{item: {type: Schema.Types.ObjectId, ref: ItemMongooseModel}, quantity: Number}]  //itemId is a reference to Item Model
 });
 
 export default mongoose.model<OrderMongooseModel>('Order', orderSchema, 'orders');

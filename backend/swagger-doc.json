@@ -5,7 +5,7 @@
     "version": "1.0.0",
     "description": ""
   },
-  "host": "",
+  "host": "localhost:3000",
   "basePath": "/",
   "schemes": [
     "http"
@@ -17,6 +17,21 @@
           "Server"
         ],
         "summary": "Server entry point",
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/generate-dummy-data": {
+      "get": {
+        "tags": [
+          "Testing"
+        ],
+        "summary": "Generate dummy data",
         "description": "",
         "parameters": [],
         "responses": {
@@ -178,10 +193,7 @@
         ],
         "responses": {
           "200": {
-            "schema": {
-              "$ref": "#/definitions/POrder"
-            },
-            "description": "OK"
+            "description": "PDF in base64."
           },
           "401": {
             "schema": {

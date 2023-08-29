@@ -1,0 +1,38 @@
+services:
+  frontend:
+    build: frontend/.
+    ports: 
+      - "3001:3001"
+    networks:
+      - react-express
+    depends_on:
+      - backend
+
+  backend:
+    build: backend/.
+    environment:
+      JWT_SECRET: dsfdsafdsfdsfdsfdbeg45409jg9845gn350ng894fj598n5034g54h9g
+      PORT: 3000
+      MONGOOSE_URL: mongodb://mongo:27017
+    ports: 
+      - "3000:3000"
+    depends_on:
+      - mongo
+    networks:
+      - express-mongo
+      - react-express
+    expose: 
+      - 3000
+
+  mongo:
+    image: mongo:4.2.0
+    ports: 
+      - "27017:27017"
+    networks:
+      - express-mongo
+    expose:
+      - 27017
+
+networks:
+  react-express:
+  express-mongo:

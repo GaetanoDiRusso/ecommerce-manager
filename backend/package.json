@@ -7,7 +7,8 @@
     "dev": "cross-env NODE_PATH=./ ts-node-dev --respawn --transpile-only index.ts",
     "docs": "cross-env NODE_PATH=./ ts-node-dev src/documentation/docsGenerator.ts",
     "test": "cross-env NODE_PATH=./ jest --detectOpenHandles --coverage",
-    "start": "cross-env NODE_PATH=./ ts-node dist",
+    "start": "cross-env NODE_PATH=./ node dist",
+    "start-prod": "NODE_PATH=./ node index.js",
     "build": "tsc --project tsconfig.build.json"
   },
   "author": "",
@@ -16,6 +17,7 @@
     "@anatine/zod-openapi": "^1.9.8",
     "cloudinary": "^1.32.0",
     "cors": "^2.8.5",
+    "cross-env": "^7.0.3",
     "dotenv": "^16.0.2",
     "express": "^4.18.1",
     "firebase-admin": "^11.5.0",

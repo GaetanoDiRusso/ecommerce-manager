@@ -15,6 +15,7 @@ import { orderRoutes } from 'src/order/infraestructure/order.route';
 import swaggerUI from 'swagger-ui-express';
 import swaggerDocs from 'swagger-doc.json';
 import { develop, staging } from 'src/config';
+import generate_dummy_data from 'generate_dummy_data';
 
 export const app = express();
 app.use(express.json({limit: '50mb'}));
@@ -33,7 +34,7 @@ app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocs));
 //Auth endpoints
 app.use('/auth', authRoutes);
 
-//User endpoints
+//Order endpoints
 app.use('/order', authMiddleware, orderRoutes);
 
 //Server entry point
@@ -43,6 +44,16 @@ app.get('/', (req, res) => {
     #swagger.summary = "Server entry point"
   */
   res.status(200).send(`Server online. Visit ${serverURL}/api-docs to read the documentation.`);
+});
+
+//Generate dummy data
+app.get('/generate-dummy-data', async (req, res) => {
+  /*
+    #swagger.tags = ['Testing']
+    #swagger.summary = "Generate dummy data"
+  */
+
+  await generate_dummy_data(req, res);
 });
 
 export const server = app.listen(port, async () => {
