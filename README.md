@@ -56,5 +56,8 @@ docker compose up -d
 ![Screenshot](swagger_docs.png)
 
 ## Frontend images
+- http://localhost:3001
+email: admin@email.com
+password: admin1234
 ![Screenshot](dashboard_1.png)
 ![Screenshot](dashboard_2.png)
