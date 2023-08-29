@@ -8,7 +8,6 @@ COPY package*.json ./
 RUN npm ci --production
 
 COPY ./dist /usr/src/app
-COPY .env /usr/src/app
 
 EXPOSE 3000
 
