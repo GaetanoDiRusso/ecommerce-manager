@@ -1,6 +1,7 @@
 services:
   frontend:
     build: frontend/.
+    image: gaetanodirusso/frontend:v1.0
     ports: 
       - "3001:3001"
     networks:
@@ -10,6 +11,7 @@ services:
 
   backend:
     build: backend/.
+    image: gaetanodirusso/backend:v1.0
     environment:
       JWT_SECRET: dsfdsafdsfdsfdsfdbeg45409jg9845gn350ng894fj598n5034g54h9g
       PORT: 3000
