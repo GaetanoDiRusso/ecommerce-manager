@@ -32,6 +32,18 @@ Project structure:
 ```
 
 ## Run the Docker image
+Pull the Frontend and Backend from the dockerhub:
+```
+docker pull gaetanodirusso/backend:v1.0
+docker pull gaetanodirusso/frontend:v1.0
+```
+
+Then, in the root repository, execute the docker compose:
+```
+docker compose up -d
+```
+
+## Build the Docker image
 ### Build the backend
 ```
 cd .\backend\
@@ -56,5 +68,10 @@ docker compose up -d
 ![Screenshot](swagger_docs.png)
 
 ## Frontend images
+- http://localhost:3001
+```
+email: admin@email.com
+password: admin1234
+```
 ![Screenshot](dashboard_1.png)
 ![Screenshot](dashboard_2.png)
