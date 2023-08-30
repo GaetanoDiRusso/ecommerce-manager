@@ -39,6 +39,7 @@ docker compose up -d
 
 ## Backend Docs endpoint
 - http://localhost:3000/api-docs
+- Ejecutar el endpoint ```/generate-dummy-data``` para generar datos de prueba
 ![Screenshot](swagger_docs.png)
 
 ## Frontend images
